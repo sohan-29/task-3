@@ -25,20 +25,19 @@ app.get('/', (req, res) => {
     res.send("welcome to Sohan's Library");
 })
 
-app.get('/books', (req, res) => {
+app.get('/books', (_, res) => {
     res.send(booksData);
 })
 
-app.post('/books/:id', (req, res) => {
-    const id = req.params.id;
-    const book = booksData.find(book =>
-        book.id === parseInt(id)
-    );
-    if (book) {
-        res.send(book);
-    } else {
-        res.status(404).send({ message: "Book not found" });
-    }
+app.post('/books', (req, res) => {
+    booksData.forEach(book => {
+        if (book.id === req.body.id) {
+            return res.status(400).send({ message: "Book already exists" });
+        }
+    })
+    booksData.push(req.body);
+    res.status(200).send({ message: "Book added successfully" });
+    console.log(booksData)
 })
 
 app.listen(port, () => {
