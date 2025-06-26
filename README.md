@@ -54,3 +54,5 @@ The server will start on port 3000. You can access it at `http://localhost:3000`
 - `DELETE /books/:id`  
   Deletes the book with the specified `id`.
 
+- `Get /books/:id`  
+  Retrieves the book with the specified `id`.
