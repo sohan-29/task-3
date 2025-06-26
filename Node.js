@@ -75,6 +75,20 @@ app.delete('/books/:id', (req, res) => {
     }
 })
 
+app.get('/books/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const book = booksData.find(book => {
+        if (book.id === id) {
+            return book
+        }
+    })
+    if (book) {
+        res.status(200).send(book);
+    } else {
+        res.status(404).send({ message: "Book not found" });
+    }
+})
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
