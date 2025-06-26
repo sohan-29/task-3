@@ -24,11 +24,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send("welcome to Sohan's Library");
 })
-//to get all books data
-app.get('/books', (_, res) => {
-    res.send(booksData);
-})
-//to add a book
+
+//to add a book (Create)
 app.post('/books', (req, res) => {
     booksData.forEach(book => {
         if (book.id === req.body.id) {
@@ -39,7 +36,13 @@ app.post('/books', (req, res) => {
     res.status(200).send({ message: "Book added successfully" });
     console.log(booksData)
 })
-//to update a book
+
+//to get all books data (Read)
+app.get('/books', (_, res) => {
+    res.send(booksData);
+})
+
+//to update a book (Update)
 app.put('/books/:id', (req, res) => {
     const id = req.params.id;
     const reqId = req.body.id;
@@ -56,6 +59,7 @@ app.put('/books/:id', (req, res) => {
     res.status(404).send({ message: "Book not found" });
 })
 
+//to delete a book (Delete)
 app.delete('/books/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const index = booksData.findIndex(book => {
@@ -63,14 +67,12 @@ app.delete('/books/:id', (req, res) => {
             return book
         }
     })
-    console.log(index)
     if (index !== -1) {
         booksData.splice(index, 1);
         res.status(200).send({ message: "Book deleted successfully" });
     } else {
         res.status(404).send({ message: "Book not found" });
     }
-    console.log(booksData)
 })
 
 app.listen(port, () => {
