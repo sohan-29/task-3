@@ -32,7 +32,7 @@ app.get('/books', (_, res) => {
 app.post('/books', (req, res) => {
     booksData.forEach(book => {
         if (book.id === req.body.id) {
-            return res.status(400).send({ message: "Book already exists" });
+            return res.status(400).send({ message: `Book with id: ${req.body.id} is already exists` });
         }
     })
     booksData.push(req.body);
