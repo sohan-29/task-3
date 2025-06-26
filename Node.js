@@ -25,8 +25,20 @@ app.get('/', (req, res) => {
     res.send("welcome to Sohan's Library");
 })
 
-app.get('/books', (req,res) => {
+app.get('/books', (req, res) => {
     res.send(booksData);
+})
+
+app.post('/books/:id', (req, res) => {
+    const id = req.params.id;
+    const book = booksData.find(book =>
+        book.id === parseInt(id)
+    );
+    if (book) {
+        res.send(book);
+    } else {
+        res.status(404).send({ message: "Book not found" });
+    }
 })
 
 app.listen(port, () => {
